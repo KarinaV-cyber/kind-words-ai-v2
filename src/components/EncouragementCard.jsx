@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 function EncouragementCard({ mood, category }) {
   const [generatedMessage, setGeneratedMessage] = useState("");
   const [displayedMessage, setDisplayedMessage] = useState("");
+  const [copied, setCopied] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
   const moodMessages = {
@@ -31,7 +32,18 @@ function EncouragementCard({ mood, category }) {
     setGeneratedMessage(message);
     setDisplayedMessage("");
     setIsTyping(true);
+    setCopied(false);
   }
+
+async function handleCopy() {
+  try {
+    await navigator.clipboard.writeText(generatedMessage);
+    setCopied(true);
+  } catch (error) {
+    console.error("Unable to copy message:", error);
+    alert("Sorry, we couldn't copy the message. Please try again.");
+  }
+}
 
   useEffect(() => {
     if (!isTyping || !generatedMessage) {
@@ -71,11 +83,23 @@ function EncouragementCard({ mood, category }) {
         {isTyping ? "Creating your message..." : "Generate My Kind Words ✨"}
       </button>
 
-      {displayedMessage && (
-        <div className="generated-message">
-          <p>{displayedMessage}</p>
-        </div>
-      )}
+      
+{displayedMessage && (
+  <div className="generated-message">
+    <p>{displayedMessage}</p>
+
+    {!isTyping && (
+      <button
+        type="button"
+        className="copy-button"
+        onClick={handleCopy}
+      >
+        {copied ? "Copied! ✓" : "Copy Message"}
+      </button>
+    )}
+  </div>
+)}
+
     </section>
   );
 }

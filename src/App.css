@@ -173,3 +173,20 @@ button:focus-visible {
     flex: 1 1 auto;
   }
 }
+
+.copy-button {
+  background: #FFFFFF;
+  color: #344D82;
+  border: 1px solid #DCE5F7;
+  border-radius: 10px;
+  padding: 11px 18px;
+  margin-top: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: #E1E9FC;
+  transform: translateY(-2px);
+}
