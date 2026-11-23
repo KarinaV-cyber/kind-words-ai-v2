@@ -1,9 +1,5 @@
 
-import { useState } from "react";
-
-function CategorySelector() {
-  const [selectedCategory, setSelectedCategory] = useState("");
-
+function CategorySelector({ selectedCategory, onCategoryChange }) {
   const categories = [
     "Work Stress",
     "Confidence",
@@ -23,7 +19,7 @@ function CategorySelector() {
           <button
             key={category}
             type="button"
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => onCategoryChange(category)}
             aria-pressed={selectedCategory === category}
           >
             {category}
@@ -32,9 +28,7 @@ function CategorySelector() {
       </div>
 
       {selectedCategory && (
-        <p>
-          Your selected category: <strong>{selectedCategory}</strong>
-        </p>
+        <p>Your selected category: {selectedCategory}</p>
       )}
     </section>
   );

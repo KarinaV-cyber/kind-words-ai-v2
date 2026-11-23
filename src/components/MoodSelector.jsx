@@ -1,9 +1,5 @@
 
-import { useState } from "react";
-
-function MoodSelector() {
-  const [selectedMood, setSelectedMood] = useState("");
-
+function MoodSelector({ selectedMood, onMoodChange }) {
   const moods = [
     "Happy",
     "Stressed",
@@ -23,7 +19,7 @@ function MoodSelector() {
           <button
             key={mood}
             type="button"
-            onClick={() => setSelectedMood(mood)}
+            onClick={() => onMoodChange(mood)}
             aria-pressed={selectedMood === mood}
           >
             {mood}
@@ -31,9 +27,7 @@ function MoodSelector() {
         ))}
       </div>
 
-      {selectedMood && (
-        <p>You selected: <strong>{selectedMood}</strong></p>
-      )}
+      {selectedMood && <p>You selected: {selectedMood}</p>}
     </section>
   );
 }
