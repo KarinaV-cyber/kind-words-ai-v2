@@ -1,5 +1,9 @@
 
+import { useState } from "react";
+
 function EncouragementCard({ mood, category }) {
+  const [generatedMessage, setGeneratedMessage] = useState("");
+
   const moodMessages = {
     Happy: "It's wonderful to recognize the good things happening in your life.",
     Stressed: "You may be carrying a lot right now. Remember to give yourself some breathing room.",
@@ -18,19 +22,32 @@ function EncouragementCard({ mood, category }) {
     "Difficult Day": "Be gentle with yourself. Rest is productive too, and tomorrow is another opportunity."
   };
 
+  function handleGenerate() {
+    setGeneratedMessage(
+      `${moodMessages[mood]} ${categoryMessages[category]}`
+    );
+  }
+
   return (
     <section className="encouragement-card">
       <h2>A Little Kindness for You 💙</h2>
 
-      {!mood || !category ? (
-        <p>
-          Select your mood and an encouragement category
-          to receive your personalized message.
-        </p>
-      ) : (
-        <div>
-          <p>{moodMessages[mood]}</p>
-          <p>{categoryMessages[category]}</p>
+      <p>
+        Choose your mood and category, then generate
+        a little encouragement for your day.
+      </p>
+
+      <button
+        type="button"
+        onClick={handleGenerate}
+        disabled={!mood || !category}
+      >
+        Generate My Kind Words ✨
+      </button>
+
+      {generatedMessage && (
+        <div className="generated-message">
+          <p>{generatedMessage}</p>
         </div>
       )}
     </section>
@@ -38,3 +55,4 @@ function EncouragementCard({ mood, category }) {
 }
 
 export default EncouragementCard;
+
