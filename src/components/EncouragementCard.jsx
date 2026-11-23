@@ -1,8 +1,11 @@
 
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 
 function EncouragementCard({ mood, category }) {
   const [generatedMessage, setGeneratedMessage] = useState("");
+  const [displayedMessage, setDisplayedMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   const moodMessages = {
     Happy: "It's wonderful to recognize the good things happening in your life.",
@@ -23,10 +26,33 @@ function EncouragementCard({ mood, category }) {
   };
 
   function handleGenerate() {
-    setGeneratedMessage(
-      `${moodMessages[mood]} ${categoryMessages[category]}`
-    );
+    const message = `${moodMessages[mood]} ${categoryMessages[category]}`;
+
+    setGeneratedMessage(message);
+    setDisplayedMessage("");
+    setIsTyping(true);
   }
+
+  useEffect(() => {
+    if (!isTyping || !generatedMessage) {
+      return;
+    }
+
+    let index = 0;
+
+    const interval = setInterval(() => {
+      index++;
+
+      setDisplayedMessage(generatedMessage.slice(0, index));
+
+      if (index >= generatedMessage.length) {
+        clearInterval(interval);
+        setIsTyping(false);
+      }
+    }, 35);
+
+    return () => clearInterval(interval);
+  }, [generatedMessage, isTyping]);
 
   return (
     <section className="encouragement-card">
@@ -40,14 +66,14 @@ function EncouragementCard({ mood, category }) {
       <button
         type="button"
         onClick={handleGenerate}
-        disabled={!mood || !category}
+        disabled={!mood || !category || isTyping}
       >
-        Generate My Kind Words ✨
+        {isTyping ? "Creating your message..." : "Generate My Kind Words ✨"}
       </button>
 
-      {generatedMessage && (
+      {displayedMessage && (
         <div className="generated-message">
-          <p>{generatedMessage}</p>
+          <p>{displayedMessage}</p>
         </div>
       )}
     </section>
@@ -55,4 +81,3 @@ function EncouragementCard({ mood, category }) {
 }
 
 export default EncouragementCard;
-
