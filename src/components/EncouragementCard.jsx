@@ -6,6 +6,7 @@ function EncouragementCard({ mood, category }) {
   const [displayedMessage, setDisplayedMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copiedFavoriteId, setCopiedFavoriteId] = useState(null);
 
   // Load saved favorites from Local Storage
   const [favorites, setFavorites] = useState(() => {
@@ -100,6 +101,17 @@ function EncouragementCard({ mood, category }) {
     }
   }
 
+async function handleCopyFavorite(message, id) {
+  try {
+    await navigator.clipboard.writeText(message);
+    setCopiedFavoriteId(id);
+  } catch (error) {
+    console.error("Unable to copy favorite:", error);
+    alert("Sorry, we couldn't copy this message.");
+  }
+}
+
+
   // Add or remove a favorite
   function handleToggleFavorite() {
     const existingFavorite = favorites.find(
@@ -136,6 +148,18 @@ function EncouragementCard({ mood, category }) {
       previousFavorites.filter((favorite) => favorite.id !== id)
     );
   }
+
+function handleClearAllFavorites() {
+  const confirmed = window.confirm(
+    "Are you sure you want to remove all your saved messages?"
+  );
+
+  if (confirmed) {
+    setFavorites([]);
+    setCopiedFavoriteId(null);
+  }
+}
+
 
   const isFavorite = favorites.some(
     (favorite) =>
@@ -195,6 +219,17 @@ function EncouragementCard({ mood, category }) {
       <section className="favorites-section">
         <h3>⭐ Your Saved Kind Words</h3>
 
+{favorites.length > 0 && (
+  <button
+    type="button"
+    className="clear-favorites-button"
+    onClick={handleClearAllFavorites}
+  >
+    Clear All Favorites
+  </button>
+)}
+
+
         {favorites.length === 0 ? (
           <p className="empty-favorites">
             Your favorite messages will appear here.
@@ -208,6 +243,17 @@ function EncouragementCard({ mood, category }) {
                 </p>
 
                 <p>{favorite.message}</p>
+
+<button
+  type="button"
+  className="copy-favorite-button"
+  onClick={() => handleCopyFavorite(favorite.message, favorite.id)}
+>
+  {copiedFavoriteId === favorite.id
+    ? "Copied! ✓"
+    : "Copy Message"}
+</button>
+
 
                 <button
                   type="button"

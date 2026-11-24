@@ -279,3 +279,41 @@ button:focus-visible {
 .remove-favorite-button:hover {
   text-decoration: underline;
 }
+
+/* Copy saved favorite button */
+
+.copy-favorite-button {
+  background: #E8EEFC;
+  color: #344D82;
+  border: 1px solid #D4DEF1;
+  border-radius: 9px;
+  padding: 9px 15px;
+  margin-top: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-favorite-button:hover {
+  background: #DCE6FA;
+  transform: translateY(-2px);
+}
+
+/* Clear all favorites button */
+
+.clear-favorites-button {
+  background: #FFFFFF;
+  color: #A34365;
+  border: 1px solid #F0CEDB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-favorites-button:hover {
+  background: #FCEEF3;
+  transform: translateY(-2px);
+}
