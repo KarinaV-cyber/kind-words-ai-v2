@@ -190,3 +190,92 @@ button:focus-visible {
   background: #E1E9FC;
   transform: translateY(-2px);
 }
+
+/* Message action buttons */
+
+.message-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.favorite-button {
+  background: #FFFFFF;
+  color: #344D82;
+  border: 1px solid #DCE5F7;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.favorite-button:hover {
+  background: #FCEEF3;
+  transform: translateY(-2px);
+}
+
+.favorite-button.is-saved {
+  background: #FCEEF3;
+  color: #A34365;
+  border-color: #F0CEDB;
+}
+
+/* Favorites section */
+
+.favorites-section {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #E1E8F5;
+}
+
+.favorites-section h3 {
+  color: #344D82;
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+}
+
+.empty-favorites {
+  color: #8A9AB8;
+  font-size: 0.95rem;
+}
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.favorite-item {
+  background: #F5F7FF;
+  border: 1px solid #E1E8F5;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.favorite-item p {
+  color: #526991;
+  line-height: 1.7;
+}
+
+.favorite-item .favorite-details {
+  color: #8394B4;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.remove-favorite-button {
+  background: transparent;
+  border: none;
+  color: #A34365;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.remove-favorite-button:hover {
+  text-decoration: underline;
+}
